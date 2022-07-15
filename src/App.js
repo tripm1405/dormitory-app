@@ -1,11 +1,21 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import { routes } from '~/routes';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-        App
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          {routes.map(({ path, Component }, index) => (
+            <Route path={path} element={<Component></Component>} key={index}></Route>
+          ))}
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
