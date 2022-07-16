@@ -1,5 +1,6 @@
 import Home from '~/pages/site/Home';
 import Login from '~/pages/site/Login';
+import MngRegisterForm from '~/pages/manage/RegisterForm';
 import MngContract from '~/pages/manage/Contract';
 import MngMistake from '~/pages/manage/Mistake';
 import StdContract from '~/pages/student/Contract';
@@ -13,6 +14,10 @@ export const routes = [
   { 
     'path': '/dang-nhap',
     'Component': Login
+  },
+  { 
+    'path': '/quan-ly/don-dang-ky',
+    'Component': MngRegisterForm
   },
   { 
     'path': '/quan-ly/hop-dong',

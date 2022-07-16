@@ -7,7 +7,7 @@ import MyNavbar from '~/components/MyNavbar';
 import MyTable from '~/components/MyTable';
 import MySidebar from '~/components/MySidebar';
 
-import { useGetConfirmContracts } from './hooks'
+import { useGetContracts, usePostConfirmContracts } from './hooks'
 
 function Contract() {
   console.log('Page: Contract');
@@ -16,47 +16,50 @@ function Contract() {
   const [contracts, setContracts] = useState(false);
   const [state, dispatch] = useStore();
 
-  const getConfirmContracts = useGetConfirmContracts();
+  const getContracts = useGetContracts();
+  const postConfirmContracts = usePostConfirmContracts();
+
+  function submitConfirmContracts(id) {
+    postConfirmContracts.mutate(
+      { body: {}, id },
+      {
+        onSuccess(data) {
+          setContracts(contracts.filter(elem => elem.id.content !== id));
+        }
+      }
+    )
+  }
 
   useEffect(() => {
-    getConfirmContracts.mutate(
+    getContracts.mutate(
       {},
       {
         onSuccess(data) {
-          console.log(data);
-          setContracts(data.data.map(({ id, student, season, room_id, subscription, created_at }) => ({
+          setContracts(data.data.map(({ contract_id, student_id, name, season, room_type, register_time}) => ({
             id: {
               title: 'id',
-              content: '' + id
+              content: '' + contract_id
             },
-            mssv: {
+            student_id: {
               title: 'MSSV',
-              content: student.student_card_id
+              content: student_id
             },
             name: {
               title: 'Họ và tên',
-              content: student.name
+              content: name
             },
             season: {
               title: 'Học kỳ',
               content: season
             },
-            room: {
-              title: 'Phòng',
-              content: room_id
+            room_type: {
+              title: 'Loại phòng',
+              content: room_type
             },
-            price: {
-              title: 'Số tiền phải trả',
-              content: subscription.price
+            register_time: {
+              title: 'Thời gian đăng kí',
+              content: register_time
             },
-            ispay: {
-              title: 'Số tiền phải trả',
-              content: subscription.is_paid
-            },
-            createdAt: {
-              title: 'Duyệt vào lúc',
-              content: created_at
-            }
           })));
         }
       }
@@ -146,7 +149,7 @@ function Contract() {
               </div>
             </>
           ) : (
-            <MyTable forms={contracts} setContract={setContract} type={'contract'}></MyTable>
+            <MyTable forms={contracts} setContract={setContract} submitConfirmContracts={submitConfirmContracts} type={'registerForm'}></MyTable>
           )}
         </div>
       </div>

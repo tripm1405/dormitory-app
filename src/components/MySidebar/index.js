@@ -2,33 +2,66 @@ import React from 'react';
 
 import { Link } from "react-router-dom";
 
-const side = [
+const sideManage = [
+  {
+    url: '/don-dang-ky',
+    icon: '/imgs/icons/hop-dong-icon.png',
+    title: 'Đơn đăng ký'
+  },
   {
     url: '/hop-dong',
-    icon: '/icons/hop-dong-icon.png',
+    icon: '/imgs/icons/hop-dong-icon.png',
     title: 'Hợp đồng'
   },
   {
     url: '/vi-pham',
-    icon: '/icons/vi-pham-icon.png',
+    icon: '/imgs/icons/vi-pham-icon.png',
     title: 'Vi phạm'
   },
   {
     url: '/hoa-don-dien-nuoc',
-    icon: '/icons/hoa-don-dien-nuoc-icon.png',
+    icon: '/imgs/icons/hoa-don-dien-nuoc-icon.png',
     title: 'Hóa đơn điện nước'
   },
   {
     url: '/don-khieu-nai',
-    icon: '/icons/don-khieu-nai-icon.png',
+    icon: '/imgs/icons/don-khieu-nai-icon.png',
     title: 'Đơn khiếu nại'
   },
   {
     url: '/xin-phep',
-    icon: '/icons/xin-phep-icon.png',
+    icon: '/imgs/icons/xin-phep-icon.png',
     title: 'Xin phép'
   },
-]
+];
+
+const sideStudent = [
+  {
+    url: '/hop-dong',
+    icon: '/imgs/icons/hop-dong-icon.png',
+    title: 'Hợp đồng'
+  },
+  {
+    url: '/vi-pham',
+    icon: '/imgs/icons/vi-pham-icon.png',
+    title: 'Vi phạm'
+  },
+  {
+    url: '/hoa-don-dien-nuoc',
+    icon: '/imgs/icons/hoa-don-dien-nuoc-icon.png',
+    title: 'Hóa đơn điện nước'
+  },
+  {
+    url: '/don-khieu-nai',
+    icon: '/imgs/icons/don-khieu-nai-icon.png',
+    title: 'Đơn khiếu nại'
+  },
+  {
+    url: '/xin-phep',
+    icon: '/imgs/icons/xin-phep-icon.png',
+    title: 'Xin phép'
+  },
+];
 
 function MySidebar({ isOpen }) {
   console.log('Component: MySidebar');
@@ -47,7 +80,7 @@ function MySidebar({ isOpen }) {
         }
     }}
     >
-      {side.map(({ url, icon, title }, index) => (
+      {(window.location.pathname.includes('/sinh-vien') ? sideStudent : sideManage).map(({ url, icon, title }, index) => (
         <div 
           style={{ 
             padding: '4px 8px', 

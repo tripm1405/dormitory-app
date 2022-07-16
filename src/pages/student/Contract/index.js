@@ -165,7 +165,7 @@ function Contract() {
                     onClick={() => setRoomMax(max)}
                     key={max}
                   >
-                    <img src="/icons/room-icon.png" style={{ width: '100%'}} alt="room-icon" />
+                    <img src="/imgs/icons/room-icon.png" style={{ width: '100%'}} alt="room-icon" />
                     <b>{description}</b>
                     <p>Giá: {price_per_month}/tháng</p>
                     <Link to="/">Xem chi tiết</Link>

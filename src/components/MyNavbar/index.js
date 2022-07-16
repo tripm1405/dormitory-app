@@ -131,7 +131,7 @@ function MyNavbar({ isSite }) {
                           color: '#000000',
                           textDecoration: 'none'
                         }}
-                        to={role === 'Quản lý kí túc xá' ? '/quan-ly/hop-dong' : '/sinh-vien/hop-dong'}
+                        to={role === 'Quản lý kí túc xá' ? '/quan-ly/don-dang-ky' : '/sinh-vien/hop-dong'}
                       >Control Panel</Link>
                     </Dropdown.Item>
                     <Dropdown.Item onClick={signOut}>Đăng xuất</Dropdown.Item>
@@ -181,7 +181,7 @@ function MyNavbar({ isSite }) {
                     color: '#000000',
                     textDecoration: 'none'
                   }}
-                  to={role === 'Quản lý kí túc xá' ? '/quan-ly/hop-dong' : '/sinh-vien/hop-dong'}
+                  to={role === 'Quản lý kí túc xá' ? '/quan-ly/don-dang-ky' : '/sinh-vien/hop-dong'}
                 >Control Panel</Link>
               </Dropdown.Item>
               <Dropdown.Item onClick={signOut}>Đăng xuất</Dropdown.Item>

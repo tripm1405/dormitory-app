@@ -23,7 +23,16 @@ function MyTable({ forms, setContract, submitConfirmContracts, setMistake, type 
     formsWrap = [{}];
   }
   if (sort.key !== '') {
-    formsWrap.sort((a, b) => a[sort.key].content < b[sort.key].content ? (sort.isASC ? 1 : -1) : (sort.isASC ? -1 : 1));
+    formsWrap.sort(
+      (a, b) => {
+        if ( isNaN(-(-(a[sort.key].content))) ) {
+          return (a[sort.key].content < b[sort.key].content) ? (sort.isASC ? 1 : -1) : (sort.isASC ? -1 : 1)
+        }
+        else {
+          return ((a[sort.key].content - b[sort.key].content) > 0) ? (sort.isASC ? 1 : -1) : (sort.isASC ? -1 : 1);
+        }
+      }
+    );
   }
 
   const pages = [...Array(Math.ceil(formsWrap.length/10)).keys()];
@@ -80,26 +89,44 @@ function MyTable({ forms, setContract, submitConfirmContracts, setMistake, type 
                     key={elem}
                   >{formsWrap[0][elem].title}</th>
                 ))}
-                {type === 'contract' ? (
+                {type === 'registerForm' ? (
                   <>
                     <th>Xét duyệt</th>
                     <th></th>
                   </>
                 ) : (type === 'mistake' ? (
                   <th></th>
+                ) : (type === 'contract' ? (
+                  <th></th>
                 ) : (
                   <></>
-                ))}
+                )))}
               </tr>
             </thead>
             <tbody>
               {formsWrap.slice((+page)*10, (+page)*10 + 10).map((elem, index) => (
                 <tr key={index}>
                   {Object.keys(formsWrap[0]).map((key, index) => (
-                    <td key={index}>{elem[key].content}</td>
+                    <td key={index}>
+                      {(key === 'room') ? (
+                        <>
+                          {elem.room.content || (
+                            <button>Chọn phòng</button>
+                          )}
+                        </>
+                      ) : ((key === 'ispay') ? (
+                        <>
+                          {elem.ispay.content ? 'Đã trả' : (
+                            <button>Xác nhận</button>
+                          )}
+                        </>
+                      ) : (
+                        <>{elem[key].content}</>
+                      ))}
+                    </td>
                   ))}
                   
-                {type === 'contract' ? (
+                {type === 'registerForm' ? (
                   <>
                     <td>
                       <button
@@ -232,9 +259,53 @@ function MyTable({ forms, setContract, submitConfirmContracts, setMistake, type 
                       </div>
                     </td>
                   </>
+                ) : (type === 'contract' ? (
+                  <>
+                    <td valign="middle">
+                      <svg 
+                        style={{
+                          width: '16px',
+                          height: '16px',
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => setContract(elem.id.content)}
+                        version="1.0" 
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512.000000 512.000000"
+                        preserveAspectRatio="xMidYMid meet"
+                      >
+                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                        <path 
+                          d="
+                            M2380 4214 c-663 -64 -1332 -428 -1979 -1075 -202 -202 -337 -359
+                            -372 -434 -25 -51 -29 -72 -29 -145 0 -138 21 -173 272 -447 181 -198 427
+                            -421 641 -581 448 -336 894 -537 1347 -609 146 -24 456 -23 605 0 531 84 1055
+                            350 1581 802 245 210 586 571 642 680 21 40 27 68 30 142 4 86 2 96 -25 156
+                            -37 79 -110 164 -327 385 -324 329 -596 549 -916 742 -130 78 -372 196 -504
+                            245 -120 44 -335 100 -464 121 -96 15 -414 26 -502 18z m405 -335 c445 -54
+                            946 -307 1434 -723 173 -146 581 -565 581 -595 0 -16 -175 -207 -324 -356
+                            -247 -246 -486 -439 -736 -595 -648 -403 -1239 -484 -1854 -253 -497 187
+                            -1031 583 -1484 1103 -45 52 -82 97 -82 101 0 30 405 446 581 595 447 382 884
+                            615 1321 705 175 36 365 42 563 18z
+                          "
+                        />
+                        <path 
+                          d="
+                            M2410 3660 c-155 -22 -342 -94 -472 -181 -87 -58 -228 -198 -288
+                            -285 -296 -428 -255 -1009 98 -1385 444 -474 1175 -476 1620 -5 312 329 387
+                            816 192 1233 -55 117 -126 216 -227 314 -162 157 -331 248 -548 295 -86 19
+                            -288 26 -375 14z m385 -354 c223 -76 405 -244 491 -456 151 -372 -17 -809
+                            -381 -990 -448 -222 -989 35 -1106 525 -31 131 -24 295 18 417 91 261 290 446
+                            558 519 107 29 311 22 420 -15z
+                          "
+                        />
+                        </g>
+                      </svg>
+                    </td>
+                  </>
                 ) : (
                   <></>
-                ))}
+                )))}
                 </tr>
               ))}
             </tbody>
