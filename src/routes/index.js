@@ -4,6 +4,7 @@ import MngRegisterForm from '~/pages/manage/RegisterForm';
 import MngContract from '~/pages/manage/Contract';
 import MngMistake from '~/pages/manage/Mistake';
 import StdContract from '~/pages/student/Contract';
+import StdMistake from '~/pages/student/Mistake';
 import Test from '~/pages/Test';
 
 export const routes = [
@@ -30,6 +31,10 @@ export const routes = [
   { 
     'path': '/sinh-vien/hop-dong',
     'Component': StdContract
+  },
+  { 
+    'path': '/sinh-vien/vi-pham',
+    'Component': StdMistake
   },
   { 
     'path': '/test',
